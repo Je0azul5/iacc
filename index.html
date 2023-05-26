@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+    <title>IA - CC</title>
+    <link href="css/index.css" rel="stylesheet" type="text/css" />
+  </head>
+
+
+
+  <body>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-scroll shadow-0" style="background-color:hsl(167.71deg 28.69% 45.89%);">
+      <div class="container">
+        <a class="navbar-brand" href="#">IA - CC</a>
+        <button class="navbar-toggler ps-0" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+          aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="d-flex justify-content-start align-items-center">
+            <i class="fas fa-bars"></i>
+          </span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarExample01">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link px-3" href="#!">Andres Felipe Sindicue Alvarado</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link px-3" href="#!">Luis Felipe Valencia </a>
+            </li>
+         
+          </ul>
+    
+        </div>
+      </div>
+    </nav>  
+
+
+    <div class="container bootstrap snippets bootdeys">
+      <div class="row">
+        <!-- perros -->
+        <div class="col-md-4 col-sm-6 content-card">
+          <div class="card-big-shadow">
+            <div
+              class="card card-just-text"
+              data-background="color"
+              data-color="blue"
+              data-radius="none"
+            >
+              <div class="content">
+                <h6 class="category">Perros vs Gatos</h6>
+                <h4 class="title">Imagen</a>
+                  
+                </h4>
+                <div id="webcam-container" > </div>
+                <p class="description">
+                  Identifiacion entre perros y gatos
+                  <div id="label-container"></div> 
+                </p>
+                <button type="button" onclick="init()" class="btn btn-primary">Comenzar</button> 
+              </br>
+            </br> 
+                <button type="button" role="link" onclick="window.location='http://127.0.0.1:5500/index.html'"  class="btn btn-danger">Detener</button>
+               
+                  
+                
+              </div>
+            </div>
+            <!-- end card -->
+          </div>
+        </div>
+<!-- end perros -->
+        <div class="col-md-4 col-sm-6 content-card">
+          <div class="card-big-shadow">
+            <div
+              class="card card-just-text"
+              data-background="color"
+              data-color="yellow"
+              data-radius="none"
+            >
+              <div class="content">
+                <h6 class="category">Ejercicio</h6>
+                <h4 class="title">Posturas</a></h4>
+                <div><canvas id="canvas"></canvas></div>
+                <p class="description">
+                  Identifiacion entre flexiones y fondos
+                  <div id="label-containery"></div>
+                </p>
+                
+                
+                
+                <button type="button" onclick="inito()" class="btn btn-primary">Comenzar</button>
+              </br>
+            </br> 
+                <button type="button" role="link" onclick="window.location='http://127.0.0.1:5500/index.html'"  class="btn btn-danger">Detener</button>
+               
+              </div>
+            </div>
+            <!-- end card -->
+          </div>
+        </div>
+<!-- trafico -->
+        <div class="col-md-4 col-sm-6 content-card">
+          <div class="card-big-shadow">
+            <div
+              class="card card-just-text"
+              data-background="color"
+              data-color="purple"
+              data-radius="none"
+            >
+              <div class="content">
+                <h6 class="category">Trafico - direccionales - ruido de fondo</h6>
+                <h4 class="title">Sonidos</a></h4>
+                <p class="description">
+                  
+                <div id="label-containere"></div>
+                </p>
+                <button type="button" onclick="initi()" class="btn btn-primary">Comenzar</button>
+              </br>
+            </br> 
+                <button type="button" role="link" onclick="window.location='http://127.0.0.1:5500/index.html'"  class="btn btn-danger">Detener</button>
+               
+              </div>
+            </div>
+            <!-- end card -->
+          </div>
+        </div>
+        <!-- end trafico -->
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@0.4.0/dist/speech-commands.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+  
+
+
+  <script type="text/javascript">
+    // More API functions here:
+    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+
+    // the link to your model provided by Teachable Machine export panel
+    const URL = "https://teachablemachine.withgoogle.com/models/3xzr7-DEd/";
+
+    let model, webcam, labelContainer, maxPredictions;
+
+    // Load the image model and setup the webcam
+    async function init() {
+      const modelURL = URL + "model.json";
+      const metadataURL = URL + "metadata.json";
+
+      // load the model and metadata
+      // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+      // or files from your local hard drive
+      // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+      model = await tmImage.load(modelURL, metadataURL);
+      maxPredictions = model.getTotalClasses();
+
+      // Convenience function to setup a webcam
+      const flip = true; // whether to flip the webcam
+      webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
+      await webcam.setup(); // request access to the webcam
+      await webcam.play();
+      window.requestAnimationFrame(loop);
+
+      // append elements to the DOM
+      document.getElementById("webcam-container").appendChild(webcam.canvas);
+      labelContainer = document.getElementById("label-container");
+      for (let i = 0; i < maxPredictions; i++) {
+        // and class labels
+        labelContainer.appendChild(document.createElement("div"));
+      }
+    }
+
+    async function loop() {
+      webcam.update(); // update the webcam frame
+      await predict();
+      window.requestAnimationFrame(loop);
+    }
+
+    // run the webcam image through the image model
+    async function predict() {
+      // predict can take in an image, video or canvas html element
+      const prediction = await model.predict(webcam.canvas);
+      for (let i = 0; i < maxPredictions; i++) {
+        const classPrediction =
+          prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+        labelContainer.childNodes[i].innerHTML = classPrediction;
+      }
+    }
+  </script>
+
+<script type="text/javascript">
+  // more documentation available at
+  // https://github.com/tensorflow/tfjs-models/tree/master/speech-commands
+
+  // the link to your model provided by Teachable Machine export panel
+  const URLa = "https://teachablemachine.withgoogle.com/models/y5GXKBGhR/";
+
+  async function createModel() {
+    const checkpointURLa = URLa + "model.json"; // model topology
+    const metadataURLa = URLa + "metadata.json"; // model metadata
+
+    const recognizer = speechCommands.create(
+      "BROWSER_FFT", // fourier transform type, not useful to change
+      undefined, // speech commands vocabulary feature, not useful for your models
+      checkpointURLa,
+      metadataURLa
+    );
+
+    // check that model and metadata are loaded via HTTPS requests.
+    await recognizer.ensureModelLoaded();
+
+    return recognizer;
+  }
+
+  async function initi() {
+    const recognizer = await createModel();
+    const classLabels = recognizer.wordLabels(); // get class labels
+    const labelContainer = document.getElementById("label-containere");
+    for (let i = 0; i < classLabels.length; i++) {
+      labelContainer.appendChild(document.createElement("div"));
+    }
+
+    // listen() takes two arguments:
+    // 1. A callback function that is invoked anytime a word is recognized.
+    // 2. A configuration object with adjustable fields
+    recognizer.listen(
+      (result) => {
+        const scores = result.scores; // probability of prediction for each class
+        // render the probability scores per class
+        for (let i = 0; i < classLabels.length; i++) {
+          const classPrediction =
+            classLabels[i] + ": " + result.scores[i].toFixed(2);
+          labelContainer.childNodes[i].innerHTML = classPrediction;
+        }
+      },
+      {
+        includeSpectrogram: true, // in case listen should return result.spectrogram
+        probabilityThreshold: 0.75,
+        invokeCallbackOnNoiseAndUnknown: true,
+        overlapFactor: 0.5, // probably want between 0.5 and 0.75. More info in README
+      }
+    );
+
+    // Stop the recognition in 5 seconds.
+    // setTimeout(() => recognizer.stopListening(), 5000);
+  }
+</script>
+
+<script type="text/javascript">
+  // More API functions here:
+  // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
+
+  // the link to your model provided by Teachable Machine export panel
+  const URLp = "https://teachablemachine.withgoogle.com/models/MfQmGLBtm/";
+  let modele, webcamy, ctx, labelContainery, maxPredictionsy;
+
+  async function inito() {
+      const modelURLp = URLp + "model.json";
+      const metadataURLp = URLp + "metadata.json";
+
+      // load the model and metadata
+      // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+      // Note: the pose library adds a tmPose object to your window (window.tmPose)
+      modele = await tmPose.load(modelURLp, metadataURLp);
+      maxPredictionsy = modele.getTotalClasses();
+
+      // Convenience function to setup a webcamy
+      const size = 200;
+      const flip = true; // whether to flip the webcamy
+      webcamy = new tmPose.Webcam(size, size, flip); // width, height, flip
+      await webcamy.setup(); // request access to the webcamy
+      await webcamy.play();
+      window.requestAnimationFrame(loopy);
+
+      // append/get elements to the DOM
+      const canvas = document.getElementById("canvas");
+      canvas.width = size; canvas.height = size;
+      ctx = canvas.getContext("2d");
+      labelContainery = document.getElementById("label-containery");
+      for (let i = 0; i < maxPredictionsy; i++) { // and class labels
+          labelContainery.appendChild(document.createElement("div"));
+      }
+  }
+
+  async function loopy(timestamp) {
+      webcamy.update(); // update the webcamy frame
+      await predicty();
+      window.requestAnimationFrame(loopy);
+  }
+
+  async function predicty() {
+      // Prediction #1: run input through posenet
+      // estimatePose can take in an image, video or canvas html element
+      const { pose, posenetOutput } = await modele.estimatePose(webcamy.canvas);
+      // Prediction 2: run input through teachable machine classification model
+      const prediction = await modele.predict(posenetOutput);
+
+      for (let i = 0; i < maxPredictionsy; i++) {
+          const classPrediction =
+              prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+          labelContainery.childNodes[i].innerHTML = classPrediction;
+      }
+
+      // finally draw the poses
+      drawPose(pose);
+  }
+
+  function drawPose(pose) {
+      if (webcamy.canvas) {
+          ctx.drawImage(webcamy.canvas, 0, 0);
+          // draw the keypoints and skeleton
+          if (pose) {
+              const minPartConfidence = 0.5;
+              tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+              tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
+          }
+      }
+  }
+</script>
+
+
+</html>
